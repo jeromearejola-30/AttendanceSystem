@@ -9,13 +9,18 @@ namespace AttendanceSystem.Controllers
             return View();
         }
 
-        public IActionResult Attendance()
+        public IActionResult About()
         {
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Attendance()
         {
+            if (HttpContext.Session.GetString("User") == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
             return View();
         }
     }
