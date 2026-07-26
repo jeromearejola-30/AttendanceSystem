@@ -2,9 +2,9 @@
 {
     public class Attendance
     {
-        public int StudentID { get; set; }
-        public string StudentName { get; set; }
-        public string Course { get; set; }
-        public string Status { get; set; }
+        public string StudentId { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string Course { get; set; } = string.Empty;
+        public string Status { get; set; } = string.Empty;
     }
 }

@@ -16,7 +16,7 @@ namespace AttendanceSystem.Controllers
             {
                 HttpContext.Session.SetString("User", username);
 
-                return RedirectToAction("Attendance", "Home");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.Error = "Invalid Username or Password!";
@@ -26,7 +26,7 @@ namespace AttendanceSystem.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
     }
 }
