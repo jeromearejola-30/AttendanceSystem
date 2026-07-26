@@ -1,95 +1,108 @@
-﻿@{
-    ViewData["Title"] = "Attendance";
+﻿@model List<AttendanceSystem.Models.Attendance>
+
+@{
+    ViewData["Title"] = "Student Attendance";
 }
 
-<h2>Student Attendance</h2>
+<div class="row g-4 mt-2">
+    <!-- Left Column: Attendance Table -->
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 p-3">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="fw-bold text-dark m-0">
+                        <i class="bi bi-people-fill text-primary me-2"></i>Student Attendance
+                    </h4>
+                    <span class="badge bg-primary rounded-pill fs-6 px-3">Total: @Model.Count</span>
+                </div>
 
-<table class="table table-bordered table-striped">
-
-    <thead class="table-dark">
-
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Course</th>
-            <th>Status</th>
-        </tr>
-
-    </thead>
-
-    <tbody>
-
-        <tr>
-            <td>1001</td>
-            <td>Juan Dela Cruz</td>
-            <td>BSIT</td>
-            <td>Present</td>
-        </tr>
-
-        <tr>
-            <td>1002</td>
-            <td>Maria Santos</td>
-            <td>BSCS</td>
-            <td>Late</td>
-        </tr>
-
-        <tr>
-            <td>1003</td>
-            <td>Peter Cruz</td>
-            <td>BSIT</td>
-            <td>Absent</td>
-        </tr>
-
-    </tbody>
-
-</table>
-
-<hr>
-
-<h4>Add Attendance</h4>
-
-<form>
-
-    <div class="mb-3">
-
-        <label>Student ID</label>
-
-        <input class="form-control" />
-
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="fw-bold text-secondary">@item.StudentId</td>
+                                        <td>@item.Name</td>
+                                        <td><span class="badge bg-light text-dark border">@item.Course</span></td>
+                                        <td>
+                                            @if (item.Status == "Present")
+                                            {
+                                                <span class="badge bg-success-subtle text-success border border-success fw-semibold">Present</span>
+                                            }
+                                            else if (item.Status == "Late")
+                                            {
+                                                <span class="badge bg-warning-subtle text-warning border border-warning fw-semibold">Late</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-danger-subtle text-danger border border-danger fw-semibold">Absent</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" class="text-center text-muted py-4">No attendance records found.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="mb-3">
+    <!-- Right Column: Add Form -->
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm rounded-4 p-3 bg-white">
+            <div class="card-body">
+                <h4 class="fw-bold text-dark mb-3">
+                    <i class="bi bi-person-plus-fill text-success me-2"></i>Add Attendance
+                </h4>
 
-        <label>Student Name</label>
+                <form asp-controller="Home" asp-action="AddAttendance" method="post">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-secondary">Student ID</label>
+                        <input type="text" name="StudentId" class="form-control" placeholder="e.g. 1004" required />
+                    </div>
 
-        <input class="form-control" />
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-secondary">Student Name</label>
+                        <input type="text" name="Name" class="form-control" placeholder="e.g. Juan Cruz" required />
+                    </div>
 
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-secondary">Course</label>
+                        <input type="text" name="Course" class="form-control" placeholder="e.g. BSIT" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-secondary">Status</label>
+                        <select name="Status" class="form-select" required>
+                            <option value="Present">Present</option>
+                            <option value="Late">Late</option>
+                            <option value="Absent">Absent</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 py-2 fw-semibold rounded-3">
+                        <i class="bi bi-check-circle me-1"></i> Save Record
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div class="mb-3">
-
-        <label>Course</label>
-
-        <input class="form-control" />
-
-    </div>
-
-    <div class="mb-3">
-
-        <label>Status</label>
-
-        <select class="form-select">
-
-            <option>Present</option>
-            <option>Late</option>
-            <option>Absent</option>
-
-        </select>
-
-    </div>
-
-    <button class="btn btn-success">
-        Save
-    </button>
-
-</form>
+</div>

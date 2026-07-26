@@ -1,22 +1,37 @@
 using Microsoft.AspNetCore.Mvc;
+using AttendanceSystem.Models;
 
 namespace AttendanceSystem.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+      
+        private static List<Attendance> _attendanceList = new List<Attendance>
         {
-            return View();
-        }
+            new Attendance { StudentId = "1001", Name = "Juan Dela Cruz", Course = "BSIT", Status = "Present" },
+            new Attendance { StudentId = "1002", Name = "Maria Santos", Course = "BSCS", Status = "Late" },
+            new Attendance { StudentId = "1003", Name = "Peter Cruz", Course = "BSIT", Status = "Absent" }
+        };
 
+        
+        [HttpGet]
         public IActionResult Attendance()
         {
-            return View();
+            return View(_attendanceList);
         }
 
-        public IActionResult About()
+        
+        [HttpPost]
+        public IActionResult AddAttendance(Attendance model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                _attendanceList.Add(model);
+            }
+            return RedirectToAction("Attendance");
         }
+
+        public IActionResult Index() => View();
+        public IActionResult About() => View();
     }
 }
