@@ -4,16 +4,28 @@
 
 <div class="text-center mt-5">
 
-    <h1>Attendance Management System</h1>
+    <h1 class="display-4">Attendance Management System</h1>
 
     <p class="lead">
-        Welcome to our Attendance Website.
+        Welcome to the Student Attendance Management System.
     </p>
 
-    <a asp-controller="Home"
-       asp-action="Attendance"
-       class="btn btn-primary">
-        View Attendance
-    </a>
+    <hr />
+
+    <div class="mt-4">
+
+        <a asp-controller="Home"
+           asp-action="Attendance"
+           class="btn btn-primary me-2">
+            View Attendance
+        </a>
+
+        <a asp-controller="Home"
+           asp-action="About"
+           class="btn btn-success">
+            Login
+        </a>
+
+    </div>
 
 </div>
